@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: jackbergus.github.io/sitemap.xml
+Sitemap: https://lo-ds.github.io/sitemap.xml
