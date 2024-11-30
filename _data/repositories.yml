@@ -1,0 +1,10 @@
+github_repos:
+- datagram-db/knobab
+- datagram-db/datagram-db
+- datagram-db/LaSSI-pipeline
+- jackbergus/SimulatorBridger
+github_users:
+- jackbergus
+- gyankos
+- thebergami
+repo_description_lines_max: 2

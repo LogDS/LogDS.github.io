@@ -1,0 +1,18 @@
+- name: Dr. Giacomo Bergami
+  photo: profile.jpg
+  info: Lecturer in Game Technology, Newcastle University
+  email: bergamigiacomo@gmail.com
+  github: https://github.com/jackbergus
+  researchgate: https://www.researchgate.net/profile/Giacomo-Bergami
+  scholar: https://scholar.google.com/citations?user=W2Uk0xwAAAAJ
+  cv: cv/cv.pdf
+  # Change the items in "education" you have (up to 6)
+  education:
+    [
+      "(2018) Ph.D. Computer Science and Engineering, University of Bologna",
+      "(2014) MSc. Computer Science, University of Bologna",
+      "(2012) BSc. Computer Science, University of Bologna"
+    ]
+
+  educationshort:
+    ["(2012,2014,2018) BSc/MSc/PhD, University of Bologna"]

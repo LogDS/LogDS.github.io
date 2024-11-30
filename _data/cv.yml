@@ -1,0 +1,32 @@
+- contents:
+  - name: Full Name
+    value: Giacomo Bergami
+  - name: Date of Birth
+    value: 1990/10/02
+  - name: Languages
+    value: English, Italian, French, German
+  title: "Curriculum Vit\xE6"
+  type: map
+- contents:
+  - description:
+    - 'Framing the graph join   and nesting   operators in the broader context of
+      Data Integration. Generalising such concepts in the context of a general data
+      model and query language  '
+    institution: University of Bologna, Bologna, Italy
+    title: PhD in Computer Science and Engineering
+    year: 2014 - 2018
+  - description:
+    - 'Leveraging the Relational Algebra for Data Mining in the context of Hypergraph
+
+      Networks, while providing suitable use case scenarios for its applicability.'
+    institution: University of Bologna, Bologna, Italy
+    title: MSc in Computer Science
+    year: 2012 - 2014
+  - description:
+    - Porting of a SIP-communication GNU/Linux application on Android required to
+      provide an in-depth analysis of the Android Operative System.
+    institution: University of Bologna, Bologna, Italy
+    title: BSc in Computer Science
+    year: 2009 - 2012
+  title: Education
+  type: time_table
