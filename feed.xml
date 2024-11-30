@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="jackbergus.github.io/feed.xml" rel="self" type="application/atom+xml"/><link href="jackbergus.github.io/" rel="alternate" type="text/html" hreflang="en"/><updated>2024-11-30T22:27:19+00:00</updated><id>jackbergus.github.io/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">Process algebra and StateCharts</title><link href="jackbergus.github.io/blog/2018/java-state/" rel="alternate" type="text/html" title="Process algebra and StateCharts"/><published>2018-09-16T00:00:00+00:00</published><updated>2018-09-16T00:00:00+00:00</updated><id>jackbergus.github.io/blog/2018/java-state</id><content type="html" xml:base="jackbergus.github.io/blog/2018/java-state/"><![CDATA[<p>If we want to model an access to a resource that could not be read and written at the same time, we could use either process algebra or State Charts from UML analysis. In either cases the desired object is an element that could perform both read and write operations, without changing the type of the element or to remember to close and re-open the object in a different state.</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> P = read.P + write.P
+</code></pre></div></div> <p><img src="https://raw.githubusercontent.com/jackbergus/LucenePdfIndexer/master/images/Diagramma1.png" alt="P = read.P + write.P"/></p> <p>We know that usually it is not good to keep reading and writing operations on the same object, and hence we have always to close and re-open the object if we want to change the type of the operation. As a consequence we have to handle three objects at a time, an initial state (<code class="language-plaintext highlighter-rouge">P</code>), an opened state for reading purposes (<code class="language-plaintext highlighter-rouge">R</code>) and another one for writing (<code class="language-plaintext highlighter-rouge">W</code>). This could be easily modelled as follows</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>P = openRead.R + openWrite.W
+R = read.R + close.P
+W = write.W + close.P
+</code></pre></div></div> <p><img src="https://raw.githubusercontent.com/jackbergus/LucenePdfIndexer/master/images/twostates.png" alt="Representing states P, R and W"/></p> <p>Now we want to hide all the open and close operations, and hence we want to define an object, that is a State Machine, that keeps track of all the object states and then “smartly decides” which operations have to be carried out in order to reach the desired operation to execute.</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ClosedObject = OpenRead._close.ClosedObject + OpenWrite._close.ClosedObject
+ ReadableObject = _OpenRead.R
+ WritableObject = _OpenWrite.W
+ R = read.R + close.ReadableObject
+ W = write.W + close.WritableObject
+ 
+ (v (OpenRead,OpenWrite,close)) ( ClosedObject | ReadableObject | WritableObjeect)
+</code></pre></div></div> <p><img src="https://raw.githubusercontent.com/jackbergus/LucenePdfIndexer/master/images/complete.png" alt="Representing the synchronized states"/></p> <p>We could easily see that this implementation corresponds to the first tone, that is the model that we want to reach.</p> <h2 id="using-interfaces-to-implement-the-internal-states">Using Interfaces to implement the internal states</h2> <p>Firstly, we must declare in Java that closed, opened, readable and writable states belong to a same type of object. This allows define an unique interface for any possible state of the internal object.</p> <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Defines a document that could be opened, closed, read and written.
+ */</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ReadWriteDocument</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></div></div> <p>As a next step we could define a closed object, that could only perform some open actions towards either the readable or the writable object. An ErrOptional object returns either a value or an error, that could be a Throwable object or a simple (error) Message as a string.</p> <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * This is the default state when an object is opened. It is neither ready to be read, nor ready to be written.
+ * In order to perform a read or a write action, I have first to perform an open action
+ */</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Closed</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="nc">ReadWriteDocument</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">ErrOptional</span><span class="o">&lt;</span><span class="nc">DoRead</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;&gt;</span> <span class="nf">openRead</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="nc">ErrOptional</span><span class="o">&lt;</span><span class="nc">DoWrite</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;&gt;</span> <span class="nf">openWrite</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div> <p>Consequently the writable object could be implemented as follows:</p> <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">DoWrite</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="nc">Opened</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">writeObject</span><span class="o">(</span><span class="no">T</span> <span class="n">obj</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div> <p>Readable objects could be implemented in a similar fashon. If the underlying implementation allows to read and write at the same time, we could even define an interface that allows to perform both operations as follows:</p> <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">DoReadWrite</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="nc">DoRead</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;,</span> <span class="nc">DoWrite</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="o">{</span> <span class="o">}</span>
+</code></pre></div></div> <h2 id="implementing-the-interfaces-for-lucene-5">Implementing the interfaces for Lucene 5</h2> <p>At this point we define a simple class, that could be easily mapped into a Lucene Document.</p> <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LucenePaper</span> <span class="kd">extends</span> <span class="nc">LuceneDocument</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="n">text</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="n">bibtexkey</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">LucenePaper</span><span class="o">(</span><span class="nc">String</span> <span class="n">text</span><span class="o">,</span> <span class="nc">String</span> <span class="n">bibtexkey</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">bibtexkey</span> <span class="o">=</span> <span class="n">bibtexkey</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">LucenePaper</span><span class="o">(</span><span class="nc">Document</span> <span class="n">doc</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">doc</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">bibtexkey</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">text</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"text"</span><span class="o">);</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">bibtexkey</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"bibtexkey"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div> <p>At this point we could implement the <code class="language-plaintext highlighter-rouge">ClosedObject</code> as the object that could perform some outgoing operations into either a readable state or a writable one.</p> <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClosedLuceneIndex</span> <span class="kd">implements</span> <span class="nc">Closed</span><span class="o">&lt;</span><span class="nc">LucenePaper</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">StandardAnalyzer</span> <span class="n">analyzer</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">FSDirectory</span> <span class="n">index</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">File</span> <span class="n">directory</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">ClosedLuceneIndex</span><span class="o">(</span><span class="nc">File</span> <span class="n">directory</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">analyzer</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StandardAnalyzer</span><span class="o">();</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">directory</span> <span class="o">=</span> <span class="n">directory</span><span class="o">;</span>
+        <span class="c1">// Link the directory on the FileSystem to the application</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">index</span> <span class="o">=</span> <span class="nc">FSDirectory</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="n">directory</span><span class="o">.</span><span class="na">toPath</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">exists</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="nc">DirectoryReader</span><span class="o">.</span><span class="na">indexExists</span><span class="o">(</span><span class="n">index</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+
+    <span class="cm">/**
+     * Creates the Write configuration as a Lucene object
+     * @return
+     */</span>
+    <span class="kd">public</span> <span class="nc">ErrOptional</span><span class="o">&lt;</span><span class="nc">IndexWriter</span><span class="o">&gt;</span> <span class="nf">writeConfiguration</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">IndexWriterConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">IndexWriterConfig</span><span class="o">(</span><span class="n">analyzer</span><span class="o">);</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="nc">ErrOptional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="k">new</span> <span class="nc">IndexWriter</span><span class="o">(</span><span class="n">index</span><span class="o">,</span> <span class="n">config</span><span class="o">));</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="nc">ErrOptional</span><span class="o">.</span><span class="na">raiseError</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * Generates the Read configuration as a Lucene object
+     * @return
+     */</span>
+    <span class="kd">public</span> <span class="nc">ErrOptional</span><span class="o">&lt;</span><span class="nc">IndexSearcher</span><span class="o">&gt;</span> <span class="nf">openConfiguration</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="nc">IndexReader</span> <span class="n">ir</span> <span class="o">=</span> <span class="nc">DirectoryReader</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="n">index</span><span class="o">);</span>
+            <span class="nc">IndexSearcher</span> <span class="n">searcher</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">IndexSearcher</span><span class="o">(</span><span class="n">ir</span><span class="o">);</span>
+            <span class="k">return</span> <span class="nc">ErrOptional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">searcher</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="nc">ErrOptional</span><span class="o">.</span><span class="na">raiseError</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * Generates the Readable state
+     */</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">ErrOptional</span><span class="o">&lt;</span><span class="nc">DoRead</span><span class="o">&lt;</span><span class="nc">LucenePaper</span><span class="o">&gt;&gt;</span> <span class="nf">openRead</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">ErrOptional</span><span class="o">&lt;</span><span class="nc">IndexSearcher</span><span class="o">&gt;</span> <span class="n">wc</span> <span class="o">=</span> <span class="n">openConfiguration</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">wc</span><span class="o">.</span><span class="na">hasValue</span><span class="o">())</span> <span class="o">{</span>
+            <span class="nc">DoRead</span><span class="o">&lt;</span><span class="nc">LucenePaper</span><span class="o">&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LuceneRead</span><span class="o">(</span><span class="n">directory</span><span class="o">,</span><span class="n">wc</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>
+            <span class="k">return</span> <span class="nc">ErrOptional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">d</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">wc</span><span class="o">.</span><span class="na">doCast</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * Generates the Writable state
+     */</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">ErrOptional</span><span class="o">&lt;</span><span class="nc">DoWrite</span><span class="o">&lt;</span><span class="nc">LucenePaper</span><span class="o">&gt;&gt;</span> <span class="nf">openWrite</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">ErrOptional</span><span class="o">&lt;</span><span class="nc">IndexWriter</span><span class="o">&gt;</span> <span class="n">wc</span> <span class="o">=</span> <span class="n">writeConfiguration</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">wc</span><span class="o">.</span><span class="na">hasValue</span><span class="o">())</span> <span class="o">{</span>
+            <span class="nc">DoWrite</span><span class="o">&lt;</span><span class="nc">LucenePaper</span><span class="o">&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LuceneWrite</span><span class="o">(</span><span class="n">directory</span><span class="o">,</span><span class="n">wc</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>
+            <span class="k">return</span> <span class="nc">ErrOptional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">d</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">wc</span><span class="o">.</span><span class="na">doCast</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div> <p>As a next step we could implement a <code class="language-plaintext highlighter-rouge">LuceneRead</code> class that closes the indices and returns a <code class="language-plaintext highlighter-rouge">ClosedLuceneIndex</code> and a <code class="language-plaintext highlighter-rouge">LuceneWrite</code> class that does the same thing for the write indices.</p> <h2 id="implementing-the-state-machine">Implementing the State Machine</h2> <p>Since Java7, we could define a class as implementing the <code class="language-plaintext highlighter-rouge">AutoCloseable</code> interface: this means that we know that any object is closed correctly after the <code class="language-plaintext highlighter-rouge">try…catch</code> clause as follows:</p> <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">(</span><span class="nc">LuceneStateMachine</span> <span class="n">newObject</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LuceneStateMachine</span><span class="o">(</span><span class="n">file</span><span class="o">))</span> <span class="o">{</span>
+	<span class="c1">//use the newObject</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+	<span class="c1">//do something</span>
+<span class="o">}</span>
+</code></pre></div></div> <p>The State Machine could be initialized as starting in the closed state as follows:</p> <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LuceneStateMachine</span> <span class="kd">implements</span> <span class="nc">AutoCloseable</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="nc">ReadWriteDocument</span><span class="o">&lt;</span><span class="nc">LucenePaper</span><span class="o">&gt;</span> <span class="n">state</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">LuceneStateMachine</span><span class="o">(</span><span class="nc">File</span> <span class="n">file</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">state</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ClosedLuceneIndex</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div> <p>We could check the closed state as follows:</p> <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="cm">/**
+     * Closes the index through the state machine.
+     */</span>
+    <span class="kd">public</span> <span class="nc">ErrOptional</span><span class="o">&lt;</span><span class="nc">Boolean</span><span class="o">&gt;</span> <span class="nf">stateClose</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">ErrOptional</span><span class="o">&lt;</span><span class="nc">Closed</span><span class="o">&lt;</span><span class="nc">LucenePaper</span><span class="o">&gt;&gt;</span> <span class="n">elem</span> <span class="o">=</span> <span class="nc">ErrOptional</span><span class="o">.</span><span class="na">raiseMessageError</span><span class="o">(</span><span class="s">"Error: unmatched case in closing element"</span><span class="o">);</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">state</span> <span class="k">instanceof</span> <span class="nc">Closed</span><span class="o">)</span>
+            <span class="k">return</span> <span class="nc">ErrOptional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        <span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="n">state</span> <span class="k">instanceof</span> <span class="nc">DoRead</span><span class="o">)</span>
+            <span class="n">elem</span> <span class="o">=</span> <span class="o">((</span><span class="nc">LuceneRead</span><span class="o">)</span> <span class="n">state</span><span class="o">).</span><span class="na">close</span><span class="o">();</span>
+        <span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="n">state</span> <span class="k">instanceof</span> <span class="nc">DoWrite</span><span class="o">)</span>
+            <span class="n">elem</span> <span class="o">=</span> <span class="o">((</span><span class="nc">LuceneWrite</span><span class="o">)</span> <span class="n">state</span><span class="o">).</span><span class="na">close</span><span class="o">();</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">elem</span><span class="o">.</span><span class="na">hasValue</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+            <span class="k">return</span> <span class="nc">ErrOptional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">elem</span><span class="o">.</span><span class="na">doCast</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+    <span class="cm">/**
+     * Automatically closes the object
+     * @throws Exception
+     */</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="nc">ErrOptional</span><span class="o">&lt;</span><span class="nc">Boolean</span><span class="o">&gt;</span> <span class="n">cs</span> <span class="o">=</span> <span class="n">stateClose</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">cs</span><span class="o">.</span><span class="na">isError</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">cs</span><span class="o">.</span><span class="na">isThrowable</span><span class="o">())</span>
+                <span class="n">cs</span><span class="o">.</span><span class="na">getError</span><span class="o">().</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="n">cs</span><span class="o">.</span><span class="na">isMessage</span><span class="o">())</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">cs</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s">"HALT"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div></div> <p>Now we could implement all the method that have been declared in the DoRead and DoWrite interfaces in the state machine, where each method has to perform the following methods in order to check if the machine is on the correct state and, if not, to perform the state transaction to the correct one.</p> <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="nc">ErrOptional</span><span class="o">&lt;</span><span class="nc">Boolean</span><span class="o">&gt;</span> <span class="nf">prepareRead</span><span class="o">()</span> <span class="o">{</span>
+     <span class="k">if</span> <span class="o">(!(</span><span class="n">state</span> <span class="k">instanceof</span> <span class="nc">DoRead</span><span class="o">))</span> <span class="o">{</span>
+        <span class="nc">ErrOptional</span><span class="o">&lt;</span><span class="nc">Boolean</span><span class="o">&gt;</span> <span class="n">l</span> <span class="o">=</span> <span class="n">stateClose</span><span class="o">();</span>
+        <span class="c1">//returns the error if not correct execution</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">l</span><span class="o">.</span><span class="na">hasValue</span><span class="o">())</span> <span class="k">return</span> <span class="n">l</span><span class="o">.</span><span class="na">doCast</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">l</span><span class="o">.</span><span class="na">get</span><span class="o">()==</span><span class="kc">false</span><span class="o">)</span> <span class="k">return</span> <span class="nc">ErrOptional</span><span class="o">.</span><span class="na">raiseMessageError</span><span class="o">(</span><span class="s">"Error while closing the element"</span><span class="o">);</span>
+
+        <span class="nc">ErrOptional</span><span class="o">&lt;</span><span class="nc">DoRead</span><span class="o">&lt;</span><span class="nc">LucenePaper</span><span class="o">&gt;&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="o">((</span><span class="nc">ClosedLuceneIndex</span><span class="o">)</span> <span class="n">state</span><span class="o">).</span><span class="na">openRead</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">result</span><span class="o">.</span><span class="na">hasValue</span><span class="o">())</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="na">doCast</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="nc">ErrOptional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="nc">ErrOptional</span><span class="o">&lt;</span><span class="nc">Boolean</span><span class="o">&gt;</span> <span class="nf">prepareWrite</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(!(</span><span class="n">state</span> <span class="k">instanceof</span> <span class="nc">DoWrite</span><span class="o">))</span> <span class="o">{</span>
+        <span class="nc">ErrOptional</span><span class="o">&lt;</span><span class="nc">Boolean</span><span class="o">&gt;</span> <span class="n">l</span> <span class="o">=</span> <span class="n">stateClose</span><span class="o">();</span>
+        <span class="c1">//returns the error if not correct execution</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">l</span><span class="o">.</span><span class="na">hasValue</span><span class="o">())</span> <span class="k">return</span> <span class="n">l</span><span class="o">.</span><span class="na">doCast</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">l</span><span class="o">.</span><span class="na">get</span><span class="o">()==</span><span class="kc">false</span><span class="o">)</span> <span class="k">return</span> <span class="nc">ErrOptional</span><span class="o">.</span><span class="na">raiseMessageError</span><span class="o">(</span><span class="s">"Error while closing the element"</span><span class="o">);</span>
+
+        <span class="nc">ErrOptional</span><span class="o">&lt;</span><span class="nc">DoWrite</span><span class="o">&lt;</span><span class="nc">LucenePaper</span><span class="o">&gt;&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="o">((</span><span class="nc">ClosedLuceneIndex</span><span class="o">)</span> <span class="n">state</span><span class="o">).</span><span class="na">openWrite</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">result</span><span class="o">.</span><span class="na">hasValue</span><span class="o">())</span>
+           <span class="n">state</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+        <span class="k">else</span>
+           <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="na">doCast</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="nc">ErrOptional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div> <p>As a final result, we could read and write a Lucene Index trivially as follows:</p> <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//Ok: if there are no documents, there are no documents added yet</span>
+<span class="c1">//In Java7, this statement ensures that the object will be closed at the end of the road</span>
+<span class="k">try</span> <span class="o">(</span><span class="nc">LuceneStateMachine</span> <span class="n">state</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LuceneStateMachine</span><span class="o">(</span><span class="k">new</span> <span class="nc">File</span><span class="o">(</span><span class="s">"/Users/vasistas/luceneindexstate"</span><span class="o">)))</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">state</span><span class="o">.</span><span class="na">getSize</span><span class="o">().</span><span class="na">isError</span><span class="o">())</span> <span class="o">{</span>
+        <span class="c1">//add some papers</span>
+        <span class="n">state</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="k">new</span> <span class="nc">LucenePaper</span><span class="o">(</span><span class="s">"this is some long text"</span><span class="o">,</span><span class="s">"key1"</span><span class="o">));</span>
+        <span class="n">state</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="k">new</span> <span class="nc">LucenePaper</span><span class="o">(</span><span class="s">"this is some short text"</span><span class="o">,</span><span class="s">"key2"</span><span class="o">));</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Added some papers and closed"</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="c1">//performing some read operations</span>
+        <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">get</span><span class="o">(</span><span class="n">state</span><span class="o">.</span><span class="na">getSize</span><span class="o">());</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Has size"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"size: "</span><span class="o">+</span><span class="n">size</span><span class="o">);</span>
+
+        <span class="nc">Iterable</span><span class="o">&lt;</span><span class="nc">LucenePaper</span><span class="o">&gt;</span> <span class="n">it</span> <span class="o">=</span> <span class="n">get</span><span class="o">(</span><span class="n">state</span><span class="o">.</span><span class="na">asIterable</span><span class="o">());</span>
+        <span class="k">for</span> <span class="o">(</span><span class="nc">LucenePaper</span> <span class="n">p</span> <span class="o">:</span> <span class="n">it</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">text</span> <span class="o">+</span><span class="s">" -- "</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="na">bibtexkey</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="c1">//performing a write operation</span>
+        <span class="n">size</span><span class="o">++;</span>
+        <span class="n">state</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="k">new</span> <span class="nc">LucenePaper</span><span class="o">(</span><span class="s">"This is the new paper, number "</span><span class="o">+</span><span class="n">size</span><span class="o">,</span><span class="s">"key"</span><span class="o">+</span><span class="n">size</span><span class="o">));</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Added some new paper and closed"</span><span class="o">);</span>
+
+
+    <span class="o">}</span>
+   <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+   <span class="o">}</span>
+<span class="c1">//Closing the object automatically at the end of the code block: Java7</span>
+</code></pre></div></div> <p>You can find the full source code for this project at https://github.com/jackbergus/LucenePdfIndexer</p>]]></content><author><name></name></author><category term="sample-posts"/><category term="java"/><category term="programming"/><category term="statecharts"/><category term="CSS"/><summary type="html"><![CDATA[This post showcases the possibility of hardcoding State-Machines in Java in a Object-Oriented way via Calculus of Concurrent Systems]]></summary></entry><entry><title type="html">A journey towards Hacking my reMarkable</title><link href="jackbergus.github.io/blog/2017/hacking-reMarkable/" rel="alternate" type="text/html" title="A journey towards Hacking my reMarkable"/><published>2017-11-09T00:00:00+00:00</published><updated>2017-11-09T00:00:00+00:00</updated><id>jackbergus.github.io/blog/2017/hacking-reMarkable</id><content type="html" xml:base="jackbergus.github.io/blog/2017/hacking-reMarkable/"><![CDATA[<p>reMarkable is Linux and partially FOSS. This means that it can be easily accessed and customized. For the moment, I’m trying to fix some minor problems of the device. I’m going to update this post with the solutions I came up with.</p> <p><img src="https://scontent-mxp1-1.xx.fbcdn.net/v/t1.0-9/23244558_1507194149366233_5813161295301580330_n.jpg?oh=900a0b2aeb4bba7e0118bd7005a1bf5a&amp;oe=5A698410" alt="My reMarkable"/></p> <h1 id="ssh-conncetion">SSH conncetion</h1> <p>If you check the <strong>rM</strong> menu on the <strong>About</strong> session, you can check which is the username and password you can use to remotely accessing it via <code class="language-plaintext highlighter-rouge">ssh root@10.11.99.1</code>.</p> <h1 id="activating-the-tablet-web-ui">Activating the tablet Web UI</h1> <p>When I received my tablet, I tried to use the device’s HTTP interface 10.11.99.1, but <code class="language-plaintext highlighter-rouge">nmap -sT -v 10.11.99.1</code> claimed that only a SSH port was opened. Then I had to surf the file system: I recognized that the <code class="language-plaintext highlighter-rouge">/etc/</code> folder containes the <code class="language-plaintext highlighter-rouge">remarkable.conf</code>: besides some clear saved passwords (WiFi, log-in pin, root’s password and so forth), you can recognize the <code class="language-plaintext highlighter-rouge">WebInterfaceEnabled=false</code> parameter. Just change it to <code class="language-plaintext highlighter-rouge">true</code> and reboot your device to make the web interface start. The web user interface’s source code is available at <code class="language-plaintext highlighter-rouge">/usr/share/remarkable/webui/</code>. It seems that, via this interface, you can only download the documents stored in your reMarkable. I sense that, by analizing this source code, the place where the files are stored may be retreived.</p> <h1 id="where-are-my-documents-and-drawings-stored">Where are my documents and drawings stored?</h1> <p>The documents, your writings and drawings are stored in this folder: <code class="language-plaintext highlighter-rouge">/home/root/.local/share/remarkable/xochitl/</code>. Please note that the original files are not “.png”s, but is a reMarkable binary format providing the informations of the strokes. Similarly, it seems that the pdf files are extended with separate informations concerning separate hilights and strokes performed by the user on top of the document. In particular, all the files having the <code class="language-plaintext highlighter-rouge">.lines</code> extension contain all the informations pertaining to your drawings.</p> <p>Each <code class="language-plaintext highlighter-rouge">lines</code> file starts with a string <code class="language-plaintext highlighter-rouge">"reMarkable lines with selections and layers"</code> followed by the number of the page number contained within the file.</p> <h1 id="how-to-crosscompile-a-program-for-remarkable">How to crosscompile a program for reMarkable?</h1> <p>Your reMarkable is an ARM A9 architecture. For this reason, it is sufficient to compile a program with <code class="language-plaintext highlighter-rouge">arm-linux-gnueabihf-gcc</code>. This cross compiler can be installed via the Debian/Ubuntu package “gcc-arm-linux-gnueabihf”.</p>]]></content><author><name></name></author><category term="sample-posts"/><category term="reMarkable"/><summary type="html"><![CDATA[reMarkable is Linux and partially FOSS. This means that it can be easily accessed and customized. For the moment, I'm trying to fix some minor problems of the device. I'm going to update this post with the solutions I came up with.]]></summary></entry><entry><title type="html">How to embed a ScreenCast into a Web Page through Node.js</title><link href="jackbergus.github.io/blog/2017/streaminglive/" rel="alternate" type="text/html" title="How to embed a ScreenCast into a Web Page through Node.js"/><published>2017-09-09T00:00:00+00:00</published><updated>2017-09-09T00:00:00+00:00</updated><id>jackbergus.github.io/blog/2017/streaminglive</id><content type="html" xml:base="jackbergus.github.io/blog/2017/streaminglive/"><![CDATA[<p>This brief post will tell ya how to create a live stream and to make it available to any user that has a web browser. This is possible since you can always redirect a mpeg stream into a WebSocket, and then show the content in a web page via JavaScript thanks to WebGL and Canvas2D renderers.</p> <p>First, you must have ffmpeg installed in your local computer, where the stream is going to originate. Then, on a remote computer that will provide the streaming, you must <a href="https://github.com/nodesource/distributions#debinstall">install node.js</a> and then clone the <a href="https://github.com/phoboslab/jsmpeg">jsmpeg repository</a>. At this step, you must edit line 86 from <code class="language-plaintext highlighter-rouge">websocket-relay.js</code> as follows:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> }).listen(STREAM_PORT, 'my.remote.ip.address');
+</code></pre></div></div> <p>By doing this, you force the proxy to listen from a remote connection instead of doing it on localhost. Moreover, you have to <code class="language-plaintext highlighter-rouge">npm install</code> the modules <code class="language-plaintext highlighter-rouge">ws</code> and <code class="language-plaintext highlighter-rouge">http-server</code>. After doing so, you can start the http server and the proxy as follows:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> node websocket-relay.js &lt;yourpw&gt; 8081 8082 &amp; 
+ http-server
+</code></pre></div></div> <p>At this point, you can start streaming from your local computer towards your streaming proxy as follows:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ffmpeg     -f x11grab -s 1280x720 -framerate 30 -i :0.0 \
+            -c:v libx264 -preset veryfast -tune zerolatency \
+            -pix_fmt yuv444p -f mpegts -codec:v mpeg1video \
+            -s 800x654 -b:v 1000k -bf 0 \
+            http://my.remote.ip.address:8081/&lt;yourpw&gt;
+</code></pre></div></div> <p>Finally, your streaming will be available via browser as follows:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> http://my.remote.ip.address:8080/view-stream.html
+</code></pre></div></div>]]></content><author><name></name></author><category term="sample-posts"/><category term="dyi,"/><category term="nodejs,"/><category term="ffmpeg,"/><category term="streaming"/><summary type="html"><![CDATA[This brief post will tell ya how to create a live stream and to make it available to any user that has a web browser. This is possible since you can always redirect a mpeg stream into a WebSocket, and then show the content in a web page via JavaScript thanks to WebGL and Canvas2D renderers.]]></summary></entry></feed>

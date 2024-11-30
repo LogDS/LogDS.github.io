@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: jackbergus.github.io/sitemap.xml
