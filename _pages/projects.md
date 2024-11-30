@@ -2,14 +2,14 @@
 layout: page
 title: projects
 permalink: /projects/
-description: A collection of active projects under the Lo-DS Group
+description: A collection of active projects under the LogDS Group
 nav: true
 nav_order: 3
 display_categories: [GitHub, Research, fun]
 horizontal: false
 ---
 
-Lo-DS group revolves around very theoretical research projects having an immediate fallback in practical use case scenarios. Some of my interests are the following:
+LogDS group revolves around very theoretical research projects having an immediate fallback in practical use case scenarios. Some of my interests are the following:
 
   * Theoretical Background:
      * Verified and Explainable Artificial Intelligence (Temporal, Natural Language Processing)

@@ -2,7 +2,7 @@
 layout: team
 permalink: /people/
 title: people
-description: current members of the Lo-DS group
+description: current members of the LogDS group
 nav: true
 nav_order: 7
 

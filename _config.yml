@@ -8,7 +8,7 @@ baseurl: ''
 bib_search: true
 bing_site_verification: null
 blog_description: A simple blog discussing the latest research on my team
-blog_name: Lo-DS Blog
+blog_name: LogDS Blog
 blogger_url: null
 bluesky_url: null
 collections:
@@ -39,18 +39,13 @@ discord_id: null
 display_categories:
 - external-services
 display_tags:
-- formatting
-- images
-- links
-- math
-- code
-- blockquotes
-disqus_shortname: al-folio
+- statecharts
+disqus_shortname: LogDS
 email: bergamigiacomo@gmail.com
 enable_bing_verification: false
 enable_cronitor_analytics: false
 enable_darkmode: true
-enable_google_analytics: false
+enable_google_analytics: true
 enable_google_verification: false
 enable_masonry: true
 enable_math: true
@@ -142,7 +137,7 @@ gitlab_username: null
 google_analytics: null
 google_site_verification: null
 highlighter: rouge
-icon: "\u269B\uFE0F"
+icon: "📚"
 ieee_id: null
 imagemagick:
   enabled: true
@@ -491,7 +486,7 @@ third_party_libraries:
     version: 5.16.3
 title: blank
 unsplash_id: null
-url: https://lo-ds.github.io
+url: https://logds.github.io
 wechat_qr: null
 whatsapp_number: null
 wikidata_id: null

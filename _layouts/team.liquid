@@ -9,10 +9,10 @@ layout: default
 
 {% for member in site.data.pi %}
 
-<div class="jumbotron">
+<div class="card mt-3 p-3">
 <div class="row">
 <div class="col-sm-2">
-  <img src="{{ site.url }}{{ site.baseurl }}/assets/img/{{ member.photo }}" width="100%" style="max-width:250px"/>
+  <img src="{{ site.url }}{{ site.baseurl }}/assets/img/{{ member.photo }}" width="100%" style="max-width:250px;border-radius: 50%;"/>
 </div>
 <div class="col-sm-9 col-xs-12">
 <h4>{{ member.name }}</h4>
@@ -30,9 +30,10 @@ layout: default
 
 {% endfor %}
 
+<br /><br />
 <h2>Current Students and Postdocs</h2> 
 
-<div class='jumbotron'>
+<div class='card'>
 {% assign number_printed = 0 %}
 {% for member in site.data.team_members %}
 
@@ -43,11 +44,11 @@ layout: default
 <div class="row">
 {% endif %}
 
-<div class="col-sm-2">
-<img src="{{ site.url }}{{ site.baseurl }}/assets/img/{{ member.photo }}" width="100%" style="max-width:250px"/>
+<div class="col-sm-2 ">
+<img src="{{ site.url }}{{ site.baseurl }}/assets/img/{{ member.photo }}" width="100%" style="max-width:250px;border-radius: 50%;"/>
 </div>
-<div class="col-sm-4 col-xs-12">
-  <h4>{{ member.name }}</h4>
+<div class="col-sm-4 col-xs-12 ">
+  <h4 class="card-title font-weight-medium">{{ member.name }}</h4>
   <i>{{ member.info }}<br></i>
 
 {% if member.website %}<a href="{{ member.website }}" target="_blank"><i class="fa fa-home fa-2x"></i></a> {% endif %}
@@ -76,10 +77,10 @@ layout: default
 {% endif %}
 </div>
 
-
+<br /><br />
 <h2>Alumni</h2> 
 
-<div class="jumbotron">
+<div class="card">
 {% assign number_printed = 0 %}
 {% for member in site.data.alumni %}
 
@@ -87,14 +88,14 @@ layout: default
 
 {% if even_odd == 0 %}
 
-<div class="row">
+<div class="cv">
 {% endif %}
 
-<!--<div class="col-sm-2">
-<img src="{{ site.url }}{{ site.baseurl }}/assets/img/{{ member.photo }}" width="100%" style="max-width:250px"/>
+<!--<div class="col-sm-2 ">
+<img src="{{ site.url }}{{ site.baseurl }}/assets/img/{{ member.photo }}" width="100%" style="max-width:250px;border-radius: 50%;"/>
 </div>-->
 <div class="col-sm-4 col-xs-12">
-  <h4>{{ member.name }}</h4>
+  <h4 class="ml-1 ml-md-4">{{ member.name }}</h4>
   {{ member.duration }} <br> Role: <i>{{ member.role }}</i>. "{{ member.dissertation }}" {{ member.info }}
   <ul style="overflow: hidden">
   </ul>
