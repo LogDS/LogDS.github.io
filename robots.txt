@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://lo-ds.github.io/sitemap.xml
+Sitemap: https://logds.github.io/sitemap.xml
