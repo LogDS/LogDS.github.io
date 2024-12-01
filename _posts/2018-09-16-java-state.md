@@ -10,29 +10,46 @@ description: This post showcases the possibility of hardcoding State-Machines in
 
 If we want to model an access to a resource that could not be read and written at the same time, we could use either process algebra or State Charts from UML analysis. In either cases the desired object is an element that could perform both read and write operations, without changing the type of the element or to remember to close and re-open the object in a different state. 
 
-     P = read.P + write.P
+$$
+P = \textup{read}.P + \textup{read}.P
+$$
+
      
-![P = read.P + write.P](https://raw.githubusercontent.com/jackbergus/LucenePdfIndexer/master/images/Diagramma1.png)
+     
+![P = read.P + write.P](https://raw.githubusercontent.com/jackbergus/LucenePdfIndexer/master/images/Diagramma1_2.png){:style="margin:auto; display:block;"}
 
 We know that usually it is not good to keep reading and writing operations on the same object, and hence we have always to close and re-open the object if we want to change the type of the operation. As a consequence we have to handle three objects at a time, an initial state (```P```), an opened state for reading purposes (```R```) and another one for writing (```W```). This could be easily modelled as follows
 
-    P = openRead.R + openWrite.W
-    R = read.R + close.P
-    W = write.W + close.P
+$$
+\begin{cases}
+    P = \textup{openRead}.R + \textup{openWrite}.W & \\
+    R = \textup{read}.R + \textup{close}.P & \\
+    W = \textup{write}.W + \textup{close}.P & 
+\end{cases}
+$$
+
     
-![Representing states P, R and W](https://raw.githubusercontent.com/jackbergus/LucenePdfIndexer/master/images/twostates.png)
+![Representing states P, R and W](https://raw.githubusercontent.com/jackbergus/LucenePdfIndexer/master/images/twostates_2.png){:style="margin:auto; display:block;"}
 
 Now we want to hide all the open and close operations, and hence we want to define an object, that is a State Machine, that keeps track of all the object states and then "smartly decides" which operations have to be carried out in order to reach the desired operation to execute.
 
-     ClosedObject = OpenRead._close.ClosedObject + OpenWrite._close.ClosedObject
-     ReadableObject = _OpenRead.R
-     WritableObject = _OpenWrite.W
-     R = read.R + close.ReadableObject
-     W = write.W + close.WritableObject
-     
-     (v (OpenRead,OpenWrite,close)) ( ClosedObject | ReadableObject | WritableObjeect)
+$$
+\begin{cases}
+     ClosedObject = \overline{\textup{OpenRead}}.\overline{\textup{close}}.ClosedObject + \overline{\textup{OpenWrite}}.\overline{\textup{close}}.ClosedObject& \\
+     ReadableObject = {\textup{OpenRead}}.R& \\
+     WritableObject = {\textup{OpenWrite}}.W& \\
+     R = \textup{read}.R + \textup{close}.ReadableObject& \\
+     W = \textup{write}.W + \textup{close}.WritableObject& 
+     \end{cases}
+$$
 
-![Representing the synchronized states](https://raw.githubusercontent.com/jackbergus/LucenePdfIndexer/master/images/complete.png)
+$$
+(\nu (\textup{OpenRead},\textup{OpenWrite},\textup{close})) ( ClosedObject | ReadableObject | WritableObjeect)
+$$
+     
+     
+
+![Representing the synchronized states](https://raw.githubusercontent.com/jackbergus/LucenePdfIndexer/master/images/complete_2.png){:style="margin:auto; display:block;"}
 
 We could easily see that this implementation corresponds to the first tone, that is the model that we want to reach.
 
@@ -331,4 +348,4 @@ try (LuceneStateMachine state = new LuceneStateMachine(new File("/Users/vasistas
    }
 //Closing the object automatically at the end of the code block: Java7
 ```
-You can find the full source code for this project at https://github.com/jackbergus/LucenePdfIndexer
+You can find the full source code for this project at [https://github.com/jackbergus/LucenePdfIndexer](https://github.com/jackbergus/LucenePdfIndexer)
