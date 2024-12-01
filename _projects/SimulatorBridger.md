@@ -8,17 +8,17 @@ category: GitHub
 related_publications: true
 ---
 
-SimulatioBridger simulates the [Presentation](https://en.wikipedia.org/wiki/Presentation_layer) and the [Session](https://en.wikipedia.org/wiki/Session_layer) layer of an osmotic architecture where IoT devices are communicating directly to the cloud. Differently from other simulators, the IoT devices are not meant to be static, but are travelling within a Smart-City scenario. We are currently investigating on the possibility of tracking down patients on life-support and ambulances sending data within a Smart-City environment {% cite simbridger2 %}: this idea got us a [Best Paper Award](https://www.ehpwas.org/program.html) at eHPWAS'24.
+[SimulatorBridger](https://github.com/jackbergus/SimulatorBridger/) simulates the [Presentation](https://en.wikipedia.org/wiki/Presentation_layer) and the [Session](https://en.wikipedia.org/wiki/Session_layer) layer of an osmotic architecture where IoT devices are communicating directly to the cloud. Differently from other simulators, the IoT devices are not meant to be static, but are travelling within a Smart-City scenario. We are currently investigating on the possibility of tracking down patients on life-support and ambulances sending data within a Smart-City environment {% cite simbridger2 %}: this idea got us a [Best Paper Award](https://www.ehpwas.org/program.html) at eHPWAS'24.
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/image_01_sumo.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/image_01_sumo.png" title="An external tool generates the vehicular traces." class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/image_02_osmotic.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/image_02_osmotic.png" title="SimulatorBridger injects this information to generate communications patterns as soon as a vehicle approaches an Edge node." class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/image_03_osmotic.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/image_03_osmotic.png" title="The Central Agent orchestrates different Edge subnetworks so to balance the communication times." class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">

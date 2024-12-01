@@ -8,20 +8,20 @@ category: GitHub
 related_publications: true
 ---
 
-KnoBAB provides an ecosystem for temporal data analysis, supporting both multivariate time series analysis and log data.
+[KnoBAB](https://github.com/datagram-db/knobab) provides an ecosystem for temporal data analysis, supporting both multivariate time series analysis and log data.
 Both of these data models are represented into an internal columnar database enabling fast data querying and mining, while
 outperforming state of the art algorithms.
 
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/benchmark_burattin_scenario_1.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/benchmark_burattin_scenario_1.png" title="KnoBAB outperforms Declare Analyzer by Burattin et al." class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/Datamer.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/Datamer.png" title="KnoBAB outperforms MP-Declare Log Generator  by Skydanienko t al." class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/All_acc.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/All_acc.png" title="KnoBAB's EMeriTAte outperforms most of the sktime classifiers." class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
@@ -29,7 +29,7 @@ outperforming state of the art algorithms.
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="https://www.mdpi.com/information/information-14-00173/article_deploy/html/images/information-14-00173-g002.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="https://www.mdpi.com/information/information-14-00173/article_deploy/html/images/information-14-00173-g002.png" title="Internal representation of Data and Query." class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
