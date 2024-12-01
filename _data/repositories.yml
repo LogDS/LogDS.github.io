@@ -3,6 +3,7 @@ github_repos:
 - datagram-db/datagram-db
 - datagram-db/LaSSI-pipeline
 - jackbergus/SimulatorBridger
+- SamuelAppleby/SWiMM_DEEPeR
 github_users:
 - jackbergus
 - gyankos

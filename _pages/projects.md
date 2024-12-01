@@ -3,7 +3,7 @@ layout: page
 title: projects
 permalink: /projects/
 description: A collection of active projects under the LogDS Group
-nav: true
+nav: false
 nav_order: 3
 display_categories: [GitHub, Research, fun]
 horizontal: false

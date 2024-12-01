@@ -4,7 +4,7 @@ permalink: /teaching/
 title: teaching
 description: Materials for courses LogDS team members.
 nav: true
-nav_order: 6
+nav_order: 8
 ---
 
 Giacomo Bergami teaches the following modules:

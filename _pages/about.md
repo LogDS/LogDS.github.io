@@ -9,8 +9,8 @@ profile:
   image: profile.jpg
   image_circular: false # crops the image to make it circular
   more_info: >-
-    <p>Newcastle Upon Tyne</p>
-
+    <p>Giacomo Bergami (2023)</p>
+    <p>Newcastle University</p>
     <p>United Kingdom</p>
 
 news: false # includes a list of news items
@@ -19,7 +19,7 @@ social: true # includes social icons at the bottom of the page
 image: profile.jpg
 ---
 
-My full name's [pronunciation](http://ipa-reader.xyz/?text=%CB%88d%CA%92a%CB%90komo%20%CB%88be%3Argami&voice=Carla) in [IPA](https://en.wikipedia.org/wiki/International_Phonetic_Alphabet) is [[ˈd͡ʒaːkomo ˈbe:rgami]](http://ipa-reader.xyz/?text=%CB%88d%CA%92a%3Akomo%20%CB%88be%3Argami&voice=Carla), and I am a [Lecturer (Assistant Professor) in Game Technology at Newcastle University](https://www.ncl.ac.uk/computing/staff/profile/giacomobergami.html), and I am the PI for the **LOGic for Data Science (LogDS)** group. We advocate that **Log**ic should be used as a main driving force for **D**ata **S**cience to obtain Verified and Explainable Artificial Intelligence.
+My full name's [pronunciation](http://ipa-reader.xyz/?text=%CB%88d%CA%92a%CB%90komo%20%CB%88be%3Argami&voice=Carla) in [IPA](https://en.wikipedia.org/wiki/International_Phonetic_Alphabet) is [[ˈd͡ʒaːkomo ˈbe:rgami]](http://ipa-reader.xyz/?text=%CB%88d%CA%92a%3Akomo%20%CB%88be%3Argami&voice=Carla): I am a [Lecturer (Assistant Professor) in Game Technology at Newcastle University](https://www.ncl.ac.uk/computing/staff/profile/giacomobergami.html), and I am the PI for the **LOGic for Data Science (LogDS)** group. We advocate that **Log**ic should be used as a main driving force for **D**ata **S**cience to obtain Verified and Explainable Artificial Intelligence.
 
 
 I received my Bachelor's Degree (110/110, summa cum Laude) from Alma Mater Studiorum, Bologna University on the 13th of November 2012. The Bachelor Thesis,  “[PjProject su Android: Uno scontro su più livelli](http://amslaurea.unibo.it/4441/1/bergami_giacomo_tesi.pdf)” (en. PjProject on Android: a clash on multiple layers), was supervised by Prof. **Vittorio Ghini** [[1]](http://www.cs.unibo.it/~ghini/)[[2]](http://www.cs.unibo.it/~ghini/didattica/sistemimobili/BergamiGiacomo/index.html); it addressed a feasibility study on porting native Linux applications using the [pjsip stack](http://www.pjsip.org/) on Android: to check that, I had to study the whole interaction between Java application and native libraries through the so-called [Android Middleware (AOSP)](https://source.android.com/source/).
