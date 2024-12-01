@@ -21,6 +21,7 @@ LogDS group revolves around very theoretical research projects having an immedia
      * Evolutionary Microservice Architectures for/with Data Science
      * Zero Model-Fitting (no Neural-Network, no Bayesian Model, no Markov Logic Network) AI
 
+My personal website provides a [full list](https://jackbergus.github.io/projects/#projects-as-a-student) of older projects I was involved in as a student.
 
 <!-- pages/projects.md -->
 <div class="projects">
