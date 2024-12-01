@@ -45,6 +45,7 @@
         },
         {
             "name": "Herbert Wertheim College of Engineering, University of Florida",
+            "url": "https://dsr.cise.ufl.edu/people/index.html",
             "position": "PostDoc Researcher",
             "startDate": "2018-06",
             "endDate": "2019-08",
@@ -57,7 +58,7 @@
         },
         {
             "name": "Universität Leipzig",
-            "url": "https://web.archive.org/web/20210307034146/https://dbs.uni-leipzig.de/en/stud/2017ss/zingst",
+            "url": "https://dbs.uni-leipzig.de/study/semester/ss-2017/zingst",
             "position": "Visiting PhD Student",
             "startDate": "2017-01",
             "endDate": "2017-05",
@@ -114,7 +115,7 @@
             "awarder": "eHPWAS 2024",
             "bibref": "simbridger2",
             "summary": "Best paper award for 'Approximating Real-Time IoT Interaction through Connection Counting: A QoS Perspective'.",
-            "url": "https://conferences.sigappfr.org/ideas2024/best-papers/"
+            "url": "https://www.ehpwas.org/pics/114.jpeg"
         },
         {
             "title": "Best Paper Award",
