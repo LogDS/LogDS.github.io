@@ -2,7 +2,7 @@
     "basics": {
         "name": "Giacomo Bergami",
         "label": "Lecturer (Assistant Professor) in Game Technology at Newcastle University",
-        "image": "",
+        "image": "https://logDS.github.io/assets/img/Icon.jpeg",
         "email": "bergamigiacomo@gmail.com",
         "url": "jackbergus.github.io",
         "location": {
@@ -52,8 +52,9 @@
             "summary": "Development of new technologies for data integration and resolution of intrinsic system errors. This issue was linked to artificial intelligence as the answer to textual questions of users on digital data requires the ability to interpret and deduct/infer, together with the treatment of numerical and probabilistic values.",
             "highlights": [
                 "Inconsistency Metrics",
+                "Java Programming",
                 "C++ Programming",
-                "NLP"
+                "Data Science Pipelines"
             ]
         },
         {
@@ -111,7 +112,7 @@
     "awards": [
         {
             "title": "Best Paper Award",
-            "date": "2024/10/21",
+            "date": "2024-10-21",
             "awarder": "eHPWAS 2024",
             "bibref": "simbridger2",
             "summary": "Best paper award for 'Approximating Real-Time IoT Interaction through Connection Counting: A QoS Perspective'.",
@@ -119,7 +120,7 @@
         },
         {
             "title": "Best Paper Award",
-            "date": "2024/08/30",
+            "date": "2024-08-30",
             "awarder": "IDEAS 2024",
             "bibref": "ideas2024a",
             "summary": "Best paper award for 'Predicting Dyskinetic Events through Verified Multivariate Time Series Classification'.",
@@ -128,7 +129,7 @@
         {
             "title": "'Francesco Viviani' Recognition",
             "awarder": "Ferrara's Chamber of Commerce, IT",
-            "date": "2009/11/07",
+            "date": "2009-11-07",
             "summary": "For obtaining the high school diploma with top marks and merit.",
             "url": "http://www.fe.camcom.it/urp/manifestazioni/viviani/archivio/Viviani%202009%20OPUSCOLO%20DEF.pdf"
         }
@@ -146,7 +147,7 @@
                 "Osmotic Simulator"
             ],
             "startDate": "2024-02-01",
-            "endDate": "20209-01-31",
+            "endDate": "2029-01-31",
             "url": "https://edgeaihub.co.uk"
         }
     ],
@@ -212,10 +213,18 @@
       "volunteer": [
     {
       "organization": "PhD Progression and Completion Committee",
-      "location": "School of Computing, Newcastle University",
+      "location": "School of Computing, NCL",
       "position": "Member",
       "startDate": "2021",
       "summary": "Sitting as a panel member for PhD yearly progressions and project proposals. This deals with addressing questions to the PhD students in terms of both the project plan and research directions."
+    },
+        {
+      "organization": "Dr. Yiang Lu’s Viva",
+      "location": "School of Computing, NCL",
+      "position": "Internal Examiner ",
+      "startDate": "2024",
+      "endDate": "2024",
+      "summary": "Providing a mediating position with the External Examinator for the dissertation defense of the candidate supervised by Prof. Graham Morgan."
     }
   ]
 }
