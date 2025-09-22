@@ -167,6 +167,18 @@
         }
     ],
     "certificates": [
+                {
+            "name": "IEEE CertifAIEd™ Authorized Assessor",
+            "date": "2025-07",
+            "issuer": "IEEE",
+            "url": "https://credential.standards.ieee.org/bfab239b-bf6a-433d-a6a6-88afdc5a2f26#acc.1DPBOFpX"
+        },
+                {
+            "name": "IEEE CertifAIEd™ Assessor Training",
+            "date": "2025-06-19",
+            "issuer": "IEEE",
+            "url": "https://credential.standards.ieee.org/e81ebf11-0777-4372-bd36-91b8f7e19736#acc.ycUkhSwD"
+        },
         {
             "name": "One-Sided Communication and the MPI Shared Memory Interface \u2014 HLRS/PRACE",
             "date": "2021-12",
