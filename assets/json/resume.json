@@ -1,7 +1,7 @@
 {
     "basics": {
         "name": "Giacomo Bergami",
-        "label": "Lecturer (Assistant Professor) in Game Technology at Newcastle University",
+        "label": "PhD in Computer Science and Engineering",
         "image": "https://logDS.github.io/assets/img/Icon.jpeg",
         "email": "bergamigiacomo@gmail.com",
         "url": "jackbergus.github.io",
@@ -18,11 +18,26 @@
         ]
     },
     "work": [
+                {
+            "name": "Newcastle University",
+            "position": "Lecturer (Assistant Professor) in Game Technology at Newcastle University",
+            "url": "https://web.archive.org/web/20250922090051/https://www.ncl.ac.uk/computing/staff/profile/giacomobergami.html",
+            "startDate": "2021-09",
+            "summary": "Creating the LogDS lab for Verifiable and Explainable Artificial Intelligence",
+            "highlights": [
+                "Temporal Logic",
+                "Cloud/6G/IoT/Osmotic Simulation",
+                "Big Data Algorithms",
+                "Natural Language Processing",
+                "Multivariate Time Series Classification",
+                "Verified and Explainable Artificial Intelligence"
+            ]
+        },
         {
             "name": "Freie Universität Bozen",
             "position": "Postdoctoral Researcher",
             "url": "https://www.unibz.it/it/home/position-calls/positions-for-academic-staff/4876-sistemi-di-elaborazione-delle-informazioni-prof-maggi?group=18",
-            "startDate": "2021-01-01",
+            "startDate": "2020-11",
             "endDate": "2021-09",
             "summary": "Bridging Data Integration for Energy Efficiency with Business Process Management",
             "highlights": [
