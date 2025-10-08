@@ -5,6 +5,7 @@ description: A simulator for osmotic and 6G smart-city architectures.
 img:
 importance: 3
 category: GitHub
+img: assets/img/SOo.png
 related_publications: true
 ---
 
