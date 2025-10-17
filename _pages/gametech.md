@@ -26,3 +26,8 @@ The following material only considers the topics covered by Giacomo Bergami
      II. Correlating Skills with Strategies ([Slides](https://github.com/jackbergus/NCL_CSC3232/blob/main/slides/2_b_RL.pdf))
      
        * To Study or To Party?: [C++](https://github.com/jackbergus/NCL_CSC3232/blob/main/cpp/03_goap/study_party.cpp) and [C#](https://github.com/jackbergus/NCL_CSC3232/blob/main/csharp/ExamplesFromClass/ConsoleApp2/goap/StudyOrParty.cs)
+
+
+The old University Recordings for these lessons are freely available on YouTube:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=PMFvO-uGL59Lh9hh&amp;list=PLonip73OriJ2qObErgGkhu_nANghUyuI8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
