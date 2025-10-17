@@ -55,4 +55,4 @@ The following material only considers the topics covered by Giacomo Bergami.
 
 Some of the above lessons were recorded using the University ReCap system. These lessons were uploaded on YouTube.
 
-{% include video.html path="https://www.youtube.com/watch?v=tqHNULAFK6Y&list=PLonip73OriJ2qObErgGkhu_nANghUyuI8&index=2" class="img-fluid rounded z-depth-1" %}
+{% include video.liquid path="https://www.youtube.com/watch?v=tqHNULAFK6Y&list=PLonip73OriJ2qObErgGkhu_nANghUyuI8&index=1" class="img-fluid rounded z-depth-1" %}
