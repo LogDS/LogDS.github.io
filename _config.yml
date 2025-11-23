@@ -293,9 +293,9 @@ scholar:
   source: /_bibliography/
   style: apa
 scholar_userid: W2Uk0xwAAAAJ
-scopus_id: null
+scopus_id: 57193856589
 search_enabled: true
-semanticscholar_id: null
+semanticscholar_id: 2242718848
 serve_og_meta: false
 serve_schema_org: false
 socials_in_search: true
@@ -488,7 +488,7 @@ wechat_qr: null
 whatsapp_number: null
 wikidata_id: Q130844495
 wikipedia_id: null
-work_url: https://www.ncl.ac.uk/computing/staff/profile/giacomobergami.html
+#work_url: https://www.ncl.ac.uk/computing/staff/profile/giacomobergami.html
 x_username: gyankos
 youtube_id: null
 zotero_username: null
