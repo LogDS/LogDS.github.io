@@ -1,3 +1,14 @@
+- name: Mr Rohin Callum Percy Gillgallon
+  photo: rohin.JPG
+  duration:  In the lab 2022-2025
+  role: PhD Student
+  dissertation: |
+    SimulatorOrchestrator: a 6G simulation tool for traffic policy optimisation through agentic hashtag VANET
+  website: https://www.researchgate.net/profile/Rohin-Gillgallon
+  researchgate: https://github.com/Rohin-Gillgallon
+  scholar: https://scholar.google.com/citations?user=XAwlOP3vEfkC&hl=it&oi=sra
+
+
 - name: Dr. Reham Almutairi
   duration: In the lab 2021-2024
   role: PhD Student
