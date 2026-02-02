@@ -1,3 +1,14 @@
+- name: Dr Samuel Buzz Appleby
+  photo: sam.jpg
+  duration:  In the lab 2022-2025
+  role: PhD Student
+  dissertation: |
+    SimulatorOrchestrator: a 6G simulation tool for traffic policy optimisation through agentic hashtag VANET
+  website: ttps://samuelappleby.github.io/Samuel_Appleby/
+  researchgate: https://www.researchgate.net/profile/Samuel-Appleby-2
+  github: https://github.com/SamuelAppleby
+
+
 - name: Dr Rohin Callum Percy Gillgallon
   photo: rohin.JPG
   duration:  In the lab 2022-2025
