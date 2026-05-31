@@ -21,11 +21,11 @@ outperforming state of the art algorithms.
         {% include figure.liquid loading="eager" path="assets/img/Datamer.png" title="KnoBAB outperforms MP-Declare Log Generator  by Skydanienko t al." class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="https://www.mdpi.com/logics/logics-03-00009/article_deploy/html/images/logics-03-00009-g006.png" title="KnoBAB's EMeriTAte outperforms most of the sktime classifiers {% cite comsis25 %}." class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="https://www.mdpi.com/logics/logics-03-00009/article_deploy/html/images/logics-03-00009-g006.png" title="KnoBAB's EMeriTAte outperforms most of the sktime classifiers." class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    Bechmarks showing that our solutions outperform state of the art data-aware formal verification (left: {% cite info14030173 %}), formal synthesis (center: {% cite grades23 %}), and multivariate time series classification (right: {% cite logics2020005 %}) solutions.
+    Bechmarks showing that our solutions outperform state of the art data-aware formal verification (left: {% cite info14030173 %}), formal synthesis (center: {% cite grades23 %}), and multivariate time series classification (right: {% cite logics2020005 %}, {% cite comsis25 %}) solutions.
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
