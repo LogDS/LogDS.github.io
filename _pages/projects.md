@@ -2,12 +2,26 @@
 layout: page
 title: projects
 permalink: /projects/
-description: A growing collection of your cool projects.
-nav: true
+description: A collection of active projects under the LogDS Group
+nav: false
 nav_order: 3
-display_categories: [work, fun]
+display_categories: [GitHub, Research, fun]
 horizontal: false
 ---
+
+LogDS group revolves around very theoretical research projects having an immediate fallback in practical use case scenarios. Some of my interests are the following:
+
+  * Theoretical Background:
+     * Verified and Explainable Artificial Intelligence (Temporal, Natural Language Processing)
+     * Multimodal and Object-Oriented Database Theory and Query Languages
+     * Inconsistency Metrics
+  * Practical Use Case Scenarios:
+     * Recommendation Systems
+     * Data Analytics
+     * Evolutionary Microservice Architectures for/with Data Science
+     * Zero Model-Fitting (no Neural-Network, no Bayesian Model, no Markov Logic Network) AI
+
+Giacomo Bergami's website provides a [full list](https://jackbergus.github.io/projects/#projects-as-a-student) of older projects he was involved in as a student.
 
 <!-- pages/projects.md -->
 <div class="projects">

@@ -2,14 +2,14 @@
 layout: page
 permalink: /teaching/
 title: teaching
-description: Course materials, schedules, and resources for classes taught.
+description: Materials for courses LogDS team members.
 nav: true
-nav_order: 6
-calendar: true
+nav_order: 8
 ---
 
-This page displays a collection of courses with detailed schedules, materials, and resources. You can organize your courses by years, terms, or topics.
+Giacomo Bergami teaches the following modules:
 
-{% include calendar.liquid calendar_id='test@gmail.com' timezone='Asia/Shanghai' %}
+* [CSC3232](https://web.archive.org/web/20251017154028/https://www.ncl.ac.uk/module-catalogue/module.php?code=CSC3232): [Gaming Technologies and Simulations](/teaching/gametech.html) (2021-2025)
+* [CSC8016](https://web.archive.org/web/20250922090106/https://www.ncl.ac.uk/module-catalogue/module.php?code=CSC8016): [Advanced Programming [Concurrent Java]](/teaching/javaconcurrent.html) (2022-2025)
 
-{% include courses.liquid %}
+Modules being taught in the past can be retrieved via my [personal web page](https://jackbergus.github.io/teaching/).

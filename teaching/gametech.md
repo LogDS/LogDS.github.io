@@ -1,0 +1,57 @@
+---
+layout: page
+permalink: /teaching/gametech.html
+title: Gaming Technologies and Simulations (CSC3232)
+description: |
+   Module Leader: Dr Giacomo Bergami. Lecturer: Dr Chris Holder
+   
+nav: false
+nav_order: 4
+---
+
+This web page covers only the topics being taught by Giacomo Bergami
+
+## Current Topics
+
+{:start="4"}
+  4. State Machines: Harel's Statecharts ([Slides](https://github.com/jackbergus/NCL_CSC3232/blob/main/slides/3_Statecharts.pdf), Code [StateSmith -> C#](https://github.com/jackbergus/NCL_CSC3232/tree/main/csharp/ExamplesFromClass/ConsoleApp2/statecharts), [Video](https://youtu.be/X0VCU_umMOY?si=35G4P_v62167unL6))
+  
+
+{:start="8"}
+  7. Reachability Problems in Games: Pathfinding ([Slides](https://github.com/jackbergus/NCL_CSC3232/blob/main/slides/4_Reachability.pdf), Code [C#](https://github.com/jackbergus/NCL_CSC3232/blob/main/csharp/ExamplesFromClass/ConsoleApp2/graphs/ReachabilityProblem.cs), [Video](https://youtu.be/WntgEo_qZXQ?si=HjcLkdvSOvfBjwkm))
+
+  8. Game Theory for Non-Cooperative Games ([Slides](https://github.com/jackbergus/NCL_CSC3232/blob/main/slides/2_c_TPCSG.pdf), Code: [C#](https://github.com/jackbergus/NCL_CSC3232/blob/main/csharp/MinMaxProjects/MinMaxProjects/Program.cs), [Video](https://www.youtube.com/watch?v=9MK_HoleZ7c))
+
+  9. Reinforcement Learning with Markov Decision Processes ([Slides](https://github.com/jackbergus/NCL_CSC3232/blob/main/slides/2_b_RL.pdf), [Video](https://youtu.be/avtGp2uPrXQ))
+       * To Study or To Party?: [C++](https://github.com/jackbergus/NCL_CSC3232/blob/main/cpp/03_goap/study_party.cpp) and [C#](https://github.com/jackbergus/NCL_CSC3232/blob/main/csharp/ExamplesFromClass/ConsoleApp2/goap/StudyOrParty.cs)
+       * Trivial RL Robot: [C++](https://github.com/jackbergus/NCL_CSC3232/blob/main/cpp/03_goap/robot.cpp)
+  
+  
+  10. AI Planning in Games ([Slides](https://github.com/jackbergus/NCL_CSC3232/blob/main/slides/1_c_goap.pdf), Code: [C#](https://github.com/jackbergus/NCL_CSC3232/blob/main/csharp/ExamplesFromClass/ConsoleApp2/goap/LocksAndDoors.cs), [C++](https://github.com/jackbergus/NCL_CSC3232/blob/main/cpp/03_goap/main.cpp), [Video](https://youtu.be/eg_FqCn_f5Q?si=n-GTjl_JIXJqpMBP))
+
+## Previous Topics
+
+The following material only considers the topics covered by Giacomo Bergami.
+ 
+ 1.  Levels and Goals 
+ 
+     I.  Probability in Game Design ([Slides](https://github.com/jackbergus/NCL_CSC3232/blob/main/slides/1_a_probability.pdf), [Handouts](https://github.com/jackbergus/NCL_CSC3232/blob/main/01_probability_game_design.pdf), Code: [C#](https://github.com/jackbergus/NCL_CSC3232/blob/main/csharp/ExamplesFromClass/ConsoleApp2/probabilities/Probabilities.cs), [C++](https://github.com/jackbergus/NCL_CSC3232/tree/main/cpp/01_probability), [Video](https://youtu.be/-nt89vVnoOc?si=CbtA0wvW18bfQJe8))
+     
+     II.  Modelling Stochastic Games: From Probability to Navigation ([Slides](https://github.com/jackbergus/NCL_CSC3232/blob/main/slides/1_b_stochastic.pdf), Code: [C#](https://github.com/jackbergus/NCL_CSC3232/blob/main/csharp/ExamplesFromClass/ConsoleApp2/timing/SnakesAndLadders.cs), [Python](https://github.com/jackbergus/NCL_CSC3232/tree/main/python/02_markov/snakes_and_ladders), [Video](https://youtu.be/D8AbSWBHRZE?si=-pAmG1CWxSqwf0x6))
+     
+     III. Planning for VideoGames: From Navigation to Analysis ([Slides](https://github.com/jackbergus/NCL_CSC3232/blob/main/slides/1_c_goap.pdf), Code: [C#](https://github.com/jackbergus/NCL_CSC3232/blob/main/csharp/ExamplesFromClass/ConsoleApp2/goap/LocksAndDoors.cs), [C++](https://github.com/jackbergus/NCL_CSC3232/blob/main/cpp/03_goap/main.cpp))
+     
+     IV. Introduction to Artificial Intelligence for VideoGames ([Slides](https://github.com/jackbergus/NCL_CSC3232/blob/main/slides/1_d_outcome.pdf), [Video](https://youtu.be/tqHNULAFK6Y?si=fNwNRKTJHWIAce2w))
+     
+ 3. Players and Adversaries 
+ 
+     I. Modelling Winning Probabilities in Stochastic Games ([Slides](https://github.com/jackbergus/NCL_CSC3232/blob/main/slides/2_a_stochastic_adv.pdf), Code: [C#](https://github.com/jackbergus/NCL_CSC3232/blob/main/csharp/ExamplesFromClass/ConsoleApp2/timing/Pong.cs), [Python](https://github.com/jackbergus/NCL_CSC3232/blob/main/python/02_markov/Prob_winning_PONG.py), [Video](https://www.youtube.com/watch?v=D8AbSWBHRZE))
+     
+     II. Correlating Skills with Strategies (see *Reinforcement Learning*)
+     
+     III. Game Theory for Non-Cooperative Games (see above)
+       
+## Podcast
+
+Some of the above lessons were recorded using the University ReCap system. These lessons were [uploaded on YouTube](https://www.youtube.com/watch?v=tqHNULAFK6Y&list=PLonip73OriJ2qObErgGkhu_nANghUyuI8&index=1).
+
