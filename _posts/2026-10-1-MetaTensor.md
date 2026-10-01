@@ -12,7 +12,7 @@ However, a fundamental engineering challenge remains unaddressed by mainstream d
 
 Both TensorFlow and PyTorch rely on runtime dynamic shape tracing and dynamic memory caching allocators. While convenient for rapid prototyping, this introduces structural overhead, unpredictable VRAM spikes, and complex graph-caching mechanisms that are notoriously difficult to profile in massive, distributed multi-GPU environments. 
 
-To bridge the gap between mathematical rigor and bare-metal execution, we developed **`MetaTensor`** ([github.com/LogDs/MetaTensor](https://github.com)). Written in **C++26**, MetaTensor is a strongly-typed, compile-time verified tensor engine built directly on top of OpenXLA (StableHLO) semantics and LibTorch (ATen Core), enforcing strict architectural predictability.
+To bridge the gap between mathematical rigor and bare-metal execution, we developed **`MetaTensor`** ([https://github.com/LogDs/MetaTensor](https://github.com/LogDs/MetaTensor)). Written in **C++26**, MetaTensor is a strongly-typed, compile-time verified tensor engine built directly on top of OpenXLA (StableHLO) semantics and LibTorch (ATen Core), enforcing strict architectural predictability.
 
 ---
 
