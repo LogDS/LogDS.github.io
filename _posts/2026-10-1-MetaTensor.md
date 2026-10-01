@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Expressing TensorFlow 2.x Operations in Plain Mathematical Notation: Enter MetaTensor"
+title: "LibTorch for Memory Predictability and Runtime Safety: Enter MetaTensor"
 date: 2026-09-29
-categories: [tensorflow, compilers, openxla, cpp]
+categories: [tensorflow, compilers, openxla, cpp, libtorch]
 author: "Giacomo Bergami, PhD"
 ---
 
