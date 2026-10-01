@@ -8,7 +8,7 @@ author: "Giacomo Bergami, PhD"
 
 `Updated: 2nd of October, 2026`
 
-In our previous discussion, we explored how **TensorFlow 2.x** and **OpenXLA** act as massive abstract graph generators. Under the hood, high-level Python code is stripped down, transformed into StableHLO intermediate representations, and passed to low-level hardware executors. We established a formal dictionary mapping the 12 core tensor operations—ranging from element-wise transformations to multi-axis existential quantifications and relational $\theta$-joins—into a crisp, unified mathematical notation.
+In our [previous discussion](https://logds.github.io/blog/2026/tensorflow/), we explored how **TensorFlow 2.x** and **OpenXLA** act as massive abstract graph generators. Under the hood, high-level Python code is stripped down, transformed into StableHLO intermediate representations, and passed to low-level hardware executors. We established a formal dictionary mapping the 12 core tensor operations—ranging from element-wise transformations to multi-axis existential quantifications and relational $\theta$-joins—into a crisp, unified mathematical notation.
 
 However, a fundamental engineering challenge remains unaddressed by mainstream deep learning frameworks: **Memory Predictability and Runtime Safety.**
 
