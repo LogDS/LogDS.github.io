@@ -2,8 +2,8 @@
 layout: post
 title: Expressing Tensorflow 2.x operations in plain Mathematical Notation
 tags: Tensorflow, TensorAlgebra, LinearAlgebra
-date: 2026-09-26
-categories: sample-posts
+date: 2026-09-29
+categories: logds
 tabs: true
 description: Documenting some of the Tensorflow 2.x operations using Mathematical notation
 ---
