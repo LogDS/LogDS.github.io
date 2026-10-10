@@ -273,11 +273,13 @@ auto cu = std::make_shared<torch::jit::CompilationUnit>();
     std::cout << "Modello salvato." << std::endl;
 
     return 0;
-    }```
+    }
+```
 
 ## Python driver 
 
 The following execution script handles loading your generated graph, executes a step-by-step mathematical state validation tracer, and inspects the structural text layout.
+
 
 ```python
 import torch
@@ -318,7 +320,7 @@ def simulate_evolution(input_val, max_cycles=20):
     return status, value
 
 
-def test_model_with_evolution(model_path="/home/gyankos/CLionProjects/TensorLibrary/cmake-build-debug-gcc12/conditional_subgraph.pt"):
+def test_model_with_evolution(model_path="conditional_subgraph.pt"):
     print(f"--- Loading the JIT model from: {model_path} ---")
     try:
         model = torch.jit.load(model_path)
