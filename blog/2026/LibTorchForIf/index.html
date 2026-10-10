@@ -206,81 +206,75 @@
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Modello salvato."</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="p">}</span><span class="err">```</span>
-
-<span class="cp">## Python driver 
-</span>
-<span class="n">The</span> <span class="n">following</span> <span class="n">execution</span> <span class="n">script</span> <span class="n">handles</span> <span class="n">loading</span> <span class="n">your</span> <span class="n">generated</span> <span class="n">graph</span><span class="p">,</span> <span class="n">executes</span> <span class="n">a</span> <span class="n">step</span><span class="o">-</span><span class="n">by</span><span class="o">-</span><span class="n">step</span> <span class="n">mathematical</span> <span class="n">state</span> <span class="n">validation</span> <span class="n">tracer</span><span class="p">,</span> <span class="n">and</span> <span class="n">inspects</span> <span class="n">the</span> <span class="n">structural</span> <span class="n">text</span> <span class="n">layout</span><span class="p">.</span>
-
-<span class="err">```</span><span class="n">python</span>
-<span class="k">import</span> <span class="n">torch</span>
+    <span class="p">}</span>
+</code></pre></div></div> <h2 id="python-driver">Python driver</h2> <p>The following execution script handles loading your generated graph, executes a step-by-step mathematical state validation tracer, and inspects the structural text layout.</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">torch</span>
 
 
-<span class="n">def</span> <span class="n">simulate_evolution</span><span class="p">(</span><span class="n">input_val</span><span class="p">,</span> <span class="n">max_cycles</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span><span class="o">:</span>
-    <span class="s">"""</span><span class="err">
-</span><span class="s">    Simula esattamente il comportamento del grafo JIT C++ ciclo per ciclo</span><span class="err">
-</span><span class="s">    per mostrare l'evoluzione delle variabili e calcolare il risultato atteso.</span><span class="err">
-</span><span class="s">    """</span>
-    <span class="n">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">--- Pure Python simulation of the expected behaviour of our JIT code ---"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">simulate_evolution</span><span class="p">(</span><span class="n">input_val</span><span class="p">,</span> <span class="n">max_cycles</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">
+    Simula esattamente il comportamento del grafo JIT C++ ciclo per ciclo
+    per mostrare l</span><span class="sh">'</span><span class="s">evoluzione delle variabili e calcolare il risultato atteso.
+    </span><span class="sh">"""</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="se">\n</span><span class="s">--- Pure Python simulation of the expected behaviour of our JIT code ---</span><span class="sh">"</span><span class="p">)</span>
     <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="cp"># outer computation value = input_val * 2
-</span>    <span class="n">value</span> <span class="o">=</span> <span class="n">input_val</span><span class="p">.</span><span class="n">clone</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span>
-    <span class="n">print</span><span class="p">(</span><span class="n">f</span><span class="s">"Initial configuration -&gt; status: {status}, value:</span><span class="se">\n</span><span class="s">{value}"</span><span class="p">)</span>
+    <span class="c1"># outer computation value = input_val * 2
+</span>    <span class="n">value</span> <span class="o">=</span> <span class="n">input_val</span><span class="p">.</span><span class="nf">clone</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Initial configuration -&gt; status: </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s">, value:</span><span class="se">\n</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">i</span> <span class="n">in</span> <span class="n">range</span><span class="p">(</span><span class="n">max_cycles</span><span class="p">)</span><span class="o">:</span>
-        <span class="cp"># 1. Multiplication per the next iteration index
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">max_cycles</span><span class="p">):</span>
+        <span class="c1"># 1. Multiplication per the next iteration index
 </span>        <span class="n">value_scaled</span> <span class="o">=</span> <span class="n">value</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.05</span>
 
-        <span class="cp"># 2. Checking the condition over the scaled value
-</span>        <span class="n">condition</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">all</span><span class="p">(</span><span class="n">value_scaled</span> <span class="o">&gt;</span> <span class="mf">0.01</span><span class="p">).</span><span class="n">item</span><span class="p">()</span>
+        <span class="c1"># 2. Checking the condition over the scaled value
+</span>        <span class="n">condition</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">all</span><span class="p">(</span><span class="n">value_scaled</span> <span class="o">&gt;</span> <span class="mf">0.01</span><span class="p">).</span><span class="nf">item</span><span class="p">()</span>
 
-        <span class="n">print</span><span class="p">(</span><span class="n">f</span><span class="s">"</span><span class="se">\n</span><span class="s">[Iteration #{i:02d}] -&gt; Times i={i} and 0.05"</span><span class="p">)</span>
-        <span class="n">print</span><span class="p">(</span><span class="n">f</span><span class="s">"         -&gt; After multiplication:</span><span class="se">\n</span><span class="s">{value_scaled}"</span><span class="p">)</span>
-        <span class="n">print</span><span class="p">(</span><span class="n">f</span><span class="s">"         -&gt; Check (value &gt; 0.01)? {condition}"</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="se">\n</span><span class="s">[Iteration #</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="mi">02</span><span class="n">d</span><span class="si">}</span><span class="s">] -&gt; Times i=</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s"> and 0.05</span><span class="sh">"</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">         -&gt; After multiplication:</span><span class="se">\n</span><span class="si">{</span><span class="n">value_scaled</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">         -&gt; Check (value &gt; 0.01)? </span><span class="si">{</span><span class="n">condition</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">condition</span><span class="o">:</span>
+        <span class="k">if</span> <span class="n">condition</span><span class="p">:</span>
             <span class="n">status</span> <span class="o">=</span> <span class="mi">1</span>
             <span class="n">value</span> <span class="o">=</span> <span class="n">value_scaled</span> <span class="o">+</span> <span class="mf">10.0</span>
-            <span class="n">print</span><span class="p">(</span><span class="n">f</span><span class="s">"         -&gt; [THEN BRANCH] UPDATE! status: {status}, value (con +10):</span><span class="se">\n</span><span class="s">{value}"</span><span class="p">)</span>
-        <span class="k">else</span><span class="o">:</span>
-            <span class="n">print</span><span class="p">(</span><span class="n">f</span><span class="s">"         -&gt; [ELSE BRANCH] !!! BREAK TRIGGERED !!! We stop here."</span><span class="p">)</span>
-            <span class="cp"># Al break, il valore finale che sopravvive è value_scaled (come da blocco else_block in C++)
+            <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">         -&gt; [THEN BRANCH] UPDATE! status: </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s">, value (con +10):</span><span class="se">\n</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">         -&gt; [ELSE BRANCH] !!! BREAK TRIGGERED !!! We stop here.</span><span class="sh">"</span><span class="p">)</span>
+            <span class="c1"># Al break, il valore finale che sopravvive è value_scaled (come da blocco else_block in C++)
 </span>            <span class="n">value</span> <span class="o">=</span> <span class="n">value_scaled</span>
             <span class="k">break</span>
 
     <span class="k">return</span> <span class="n">status</span><span class="p">,</span> <span class="n">value</span>
 
 
-<span class="n">def</span> <span class="n">test_model_with_evolution</span><span class="p">(</span><span class="n">model_path</span><span class="o">=</span><span class="s">"/home/gyankos/CLionProjects/TensorLibrary/cmake-build-debug-gcc12/conditional_subgraph.pt"</span><span class="p">)</span><span class="o">:</span>
-    <span class="n">print</span><span class="p">(</span><span class="n">f</span><span class="s">"--- Loading the JIT model from: {model_path} ---"</span><span class="p">)</span>
-    <span class="k">try</span><span class="o">:</span>
-        <span class="n">model</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">jit</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_path</span><span class="p">)</span>
-    <span class="n">except</span> <span class="n">Exception</span> <span class="n">as</span> <span class="n">e</span><span class="o">:</span>
-        <span class="n">print</span><span class="p">(</span><span class="n">f</span><span class="s">"Error while loading the .pt file: {e}"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_model_with_evolution</span><span class="p">(</span><span class="n">model_path</span><span class="o">=</span><span class="sh">"</span><span class="s">conditional_subgraph.pt</span><span class="sh">"</span><span class="p">):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">--- Loading the JIT model from: </span><span class="si">{</span><span class="n">model_path</span><span class="si">}</span><span class="s"> ---</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">jit</span><span class="p">.</span><span class="nf">load</span><span class="p">(</span><span class="n">model_path</span><span class="p">)</span>
+    <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Error while loading the .pt file: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">return</span>
 
-    <span class="cp"># Pick an input that is not going to zero
-</span>    <span class="n">input_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mf">5.0</span>
+    <span class="c1"># Pick an input that is not going to zero
+</span>    <span class="n">input_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">ones</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mf">5.0</span>
 
-    <span class="cp"># 1. Performing the Python code simulation
-</span>    <span class="n">expected_status</span><span class="p">,</span> <span class="n">expected_value</span> <span class="o">=</span> <span class="n">simulate_evolution</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">max_cycles</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="c1"># 1. Performing the Python code simulation
+</span>    <span class="n">expected_status</span><span class="p">,</span> <span class="n">expected_value</span> <span class="o">=</span> <span class="nf">simulate_evolution</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">max_cycles</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 
-    <span class="cp"># 2. Running the JIT-compiled code
-</span>    <span class="n">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">--- JIT running ---"</span><span class="p">)</span>
-    <span class="n">jit_status</span><span class="p">,</span> <span class="n">jit_value</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">)</span>
+    <span class="c1"># 2. Running the JIT-compiled code
+</span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="se">\n</span><span class="s">--- JIT running ---</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">jit_status</span><span class="p">,</span> <span class="n">jit_value</span> <span class="o">=</span> <span class="nf">model</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">)</span>
 
-    <span class="n">print</span><span class="p">(</span><span class="n">f</span><span class="s">"</span><span class="se">\n</span><span class="s">=== Checking the final results ==="</span><span class="p">)</span>
-    <span class="n">print</span><span class="p">(</span><span class="n">f</span><span class="s">" JIT Status: {jit_status} | Expected status: {expected_status}"</span><span class="p">)</span>
-    <span class="n">print</span><span class="p">(</span><span class="n">f</span><span class="s">" JIT Value:</span><span class="se">\n</span><span class="s">{jit_value}"</span><span class="p">)</span>
-    <span class="n">print</span><span class="p">(</span><span class="n">f</span><span class="s">"Expected outcome:</span><span class="se">\n</span><span class="s">{expected_value}"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="se">\n</span><span class="s">=== Checking the final results ===</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s"> JIT Status: </span><span class="si">{</span><span class="n">jit_status</span><span class="si">}</span><span class="s"> | Expected status: </span><span class="si">{</span><span class="n">expected_status</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s"> JIT Value:</span><span class="se">\n</span><span class="si">{</span><span class="n">jit_value</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Expected outcome:</span><span class="se">\n</span><span class="si">{</span><span class="n">expected_value</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 
-    <span class="cp"># Controllo di uguaglianza formale
-</span>    <span class="n">outputs_match</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">equal</span><span class="p">(</span><span class="n">jit_value</span><span class="p">,</span> <span class="n">expected_value</span><span class="p">)</span> <span class="n">and</span> <span class="p">(</span><span class="n">jit_status</span> <span class="o">==</span> <span class="n">expected_status</span><span class="p">)</span>
-    <span class="n">print</span><span class="p">(</span><span class="n">f</span><span class="s">"</span><span class="se">\n</span><span class="s">Was the computation correct? {'SÌ ✅' if outputs_match else 'NO ❌'}"</span><span class="p">)</span>
+    <span class="c1"># Controllo di uguaglianza formale
+</span>    <span class="n">outputs_match</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">equal</span><span class="p">(</span><span class="n">jit_value</span><span class="p">,</span> <span class="n">expected_value</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">jit_status</span> <span class="o">==</span> <span class="n">expected_status</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="se">\n</span><span class="s">Was the computation correct? </span><span class="si">{</span><span class="sh">'</span><span class="s">SÌ ✅</span><span class="sh">'</span> <span class="k">if</span> <span class="n">outputs_match</span> <span class="k">else</span> <span class="sh">'</span><span class="s">NO ❌</span><span class="sh">'</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="o">:</span>
-    <span class="n">test_model_with_evolution</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">"</span><span class="s">__main__</span><span class="sh">"</span><span class="p">:</span>
+    <span class="nf">test_model_with_evolution</span><span class="p">()</span>
 
 </code></pre></div></div> <p>By systematically purging intermediate nodes using <code class="language-plaintext highlighter-rouge">eraseOutput</code> and maintaining proper scalar signature definitions, your low-level LibTorch components will translate flawlessly back into cross-compatible Python execution contexts.</p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/MetaTensor/">LibTorch for Memory Predictability and Runtime Safety: Enter MetaTensor</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/tensorflow/">Expressing Tensorflow 2.x operations in plain Mathematical Notation</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2025/generating-code-plantuml/">Code generation from PlantUML</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2018/java-state/">Process algebra and StateCharts</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2017/hacking-reMarkable/">A journey towards Hacking my reMarkable</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2017/streaminglive/">How to embed a ScreenCast into a Web Page through Node.js</a> </li> </ul> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Giacomo Bergami. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>. </div> </footer> <script>
   window.alFolio = {
