@@ -8,6 +8,8 @@ tabs: true
 description: An in-depth analysis of the single-threaded adaptive Persistent LinkedHashMap view implemented in the yaucl library.
 ---
 
+**Codebase**: [https://github.com/LogDS/yaucl/tree/master/include/yaucl/structures/gamma_context](https://github.com/LogDS/yaucl/tree/master/include/yaucl/structures/gamma_context)
+
 ## 1. Theoretical Computer Science Context and the Problem of Replicated Environments
 
 In programming language theory, type-checkers, compilers, and constraint solvers must continuously track a formal context—traditionally denoted as $\Gamma$. This context maps identifiers to their types, variable definitions, or active constraints. As an interpreter evaluates deep reduction branches, type-checks polymorphic terms, or executes backtracking search loops, it creates a massive number of nested sub-contexts derived from a root environment.
