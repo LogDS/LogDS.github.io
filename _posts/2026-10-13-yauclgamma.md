@@ -1,5 +1,5 @@
 ---
-layout: html
+layout: post
 title: "High-Performance Context Management in Yaucl"
 date: 2026-10-13 02:23:00
 description: "An in-depth analysis of the single-threaded adaptive Persistent LinkedHashMap view implemented in the yaucl library."
