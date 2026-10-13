@@ -2,11 +2,8 @@
 layout: post
 title: "High-Performance Context Management in Yaucl"
 date: 2026-10-13 02:23:00
-description: "An in-depth analysis of the single-threaded adaptive Persistent LinkedHashMap view implemented in the yaucl library."
-tags: [compilers, pl-theory, c++, performance,data-structures]
-categories: algorithms-and-data-structures
-giscus_comments: true
-related_publications: false
+tags: [compilers, pl-theory, c++, performance, data-structures]
+categories: [algorithms-and-data-structures]
 ---
 
 ## 1. Theoretical Computer Science Context and the Problem of Replicated Environments
