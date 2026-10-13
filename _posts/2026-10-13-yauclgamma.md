@@ -266,7 +266,7 @@ Modification Ratio (α)
 
 ## 6. Discussion of Empirical Benchmarking Results
 
-The architecture was evaluated under single-threaded conditions, compiled with `Clang 15 -O3` on an AMD Ryzen processor, simulating a type-checker processing a global scope ($\Gamma$) with 50 parallel backtracking evaluation branches.
+The architecture was evaluated under single-threaded conditions, compiled with `Clang 15 -O3` on an **Intel® Core™ Ultra 9 185H × 22**, simulating a type-checker processing a global scope ($\Gamma$) with 50 parallel backtracking evaluation branches.
 
 
 ![Benchmarks via `src/examples/gamma_context.cpp`](https://logds.github.io/assets/img/Rplot.png)
