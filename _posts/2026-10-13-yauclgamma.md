@@ -1,6 +1,6 @@
 ---
 layout: html
-title: "High-Performance Context Management $\Gamma$ in Yaucl"
+title: "High-Performance Context Management in Yaucl"
 date: 2026-10-13 02:23:00
 description: "An in-depth analysis of the single-threaded adaptive Persistent LinkedHashMap view implemented in the yaucl library."
 tags: [compilers, pl-theory, c++, performance,data-structures]
