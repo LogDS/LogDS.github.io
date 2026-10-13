@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Deep-Dive Tutorial: Programmatic Control Flow (`prim::If` & `prim::Loop`) in LibTorch JIT C++"
-date: 2026-10-01 12:00:00 +0200
+date: 2026-10-10 12:00:00 +0200
 categories: [machine-learning, c++]
 tags: [libtorch, pytorch, torchscript, jit]
 ---
