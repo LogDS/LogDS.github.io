@@ -1,4 +1,5 @@
 ---
+layout: post
 title: "Breaking the OOM Barrier: High-Rank Multi-Dimensional Sparse Einsum via Compressed Sparse Fiber (CSF) on GPU"
 date: 2026-10-29 00:00:00 +0100
 categories: [machine-learning, hpc]
